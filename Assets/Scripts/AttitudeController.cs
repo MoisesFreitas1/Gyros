@@ -19,7 +19,7 @@ public class AttitudeController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         p = -Input.gyro.rotationRate.z;
         q = -Input.gyro.rotationRate.x;
@@ -27,9 +27,9 @@ public class AttitudeController : MonoBehaviour
 
         Vector3 Wn = Body2Station(theta, phi, p, q, r);
 
-        theta = theta + Wn[1] * Time.deltaTime;
-        phi = phi + Wn[0] * Time.deltaTime;
-        psi = psi + Wn[2] * Time.deltaTime;
+        theta = theta + Wn[1] * Time.fixedDeltaTime;
+        phi = phi + Wn[0] * Time.fixedDeltaTime;
+        psi = psi + Wn[2] * Time.fixedDeltaTime;
 
         transform.rotation = Euler2Quaternion(theta, phi, psi);
     }
